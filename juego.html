@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Juego</title>
+</head>
+	<script type="text/javascript">
+		function juego(){
+		var opciones = ['Piedra', 'Papel', 'Tijeras'];
+		var num_op= opciones.length;
+		numero=Math.floor(Math.random()*num_op);
+		console.log(opciones[numero])
+		if(opciones[numero] == 'Piedra'){
+			document.getElementById("foto").src="piedra.png";
+		}else if(opciones[numero] == 'Papel'){
+			document.getElementById("foto").src="papel.jpg";
+		}else if(opciones[numero] == 'Tijeras'){
+			document.getElementById("foto").src="tijeras.png";
+		}
+}
+	</script>
+<body>
+	<p id="juego"></p>
+	<img id="foto"; src="default.png" height="100px"; width="100px;"><br>
+	<button type="button" onclick="juego()">Jugar</button>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<title>Conversiones</title>
+</head>
+<script type="text/javascript">
+	function convertir(valor){
+		valor = parseFloat(valor);
+		document.getElementById('Celsius').innerHTML=(valor-32)/1.8;
+	}
+</script>
+<style type="text/css">
+	#Fahrenheit{
+		font-family: 'Montserrat', sans-serif;
+	}
+	p{
+		font-family: 'Montserrat', sans-serif;
+	}
+</style>
+<body>
+	<p>Fahrenheit</p>
+	<input type="number" id="Fahrenheit" placeholder="Fahrenheit"
+	oninput = "convertir(this.value)"
+	onchange = "convertir(this.value)">
+	<p>Celsius:<span id="Celsius"></span></p>
+
+</body>
+</html>
