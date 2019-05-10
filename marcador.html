@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Ultra" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="marcador.css"> 
+	<title>Marcador de Ping Pong</title>
+</head>
+<script type="text/javascript">
+	function foto1(input){
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#foto')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+	function foto2(input){
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#foto2')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+
+	function updatePlayerOne(){
+					var scorePlayer = parseInt(document.getElementById("score").value) + 1;
+					document.getElementById("score").value=scorePlayer;
+
+		console.log(scorePlayer);
+
+	}
+	function updatePlayerTwo(){
+					var scorePlayerTwo = parseInt(document.getElementById("score2").value) + 1;
+					document.getElementById("score2").value=scorePlayerTwo;
+
+		console.log(scorePlayerTwo);
+
+	}
+	function updateSet(){
+					var scoreSet = parseInt(document.getElementById("scoreSet").value) + 1;
+					document.getElementById("scoreSet").value=scoreSet;
+
+		console.log(scoreSet);
+
+	}
+	function myFunction() {
+  var x = document.getElementById("tacha");
+  if (x.style.display === "none") {
+    x.style.display = "inline";
+    document.getElementById("tacha").src="tacha.png";
+  } else {
+    x.style.display = "none";
+    document.getElementById("tacha").src="tacha.png";
+  }
+}
+document.onkeydown = function(event){
+ var keyCode = event.which || event.keyCode;
+ if(keyCode == 49) 
+ {
+    console.log("tecla numero 1");
+  		updatePlayerOne()
+ }
+ if(keyCode == 50) 
+ {
+   console.log("tecla numero 2");
+  		updatePlayerTwo()
+ }
+}
+//function startTimer(duration, display) {
+    //var timer = duration, minutes, seconds;
+    //setInterval(function () {
+       // minutes = parseInt(timer / 60, 10)
+        //seconds = parseInt(timer % 60, 10);
+
+        //seconds = seconds < 10 ? "0" + seconds : seconds;
+
+       // //display.textContent = minutes + ":" + seconds;
+
+        //  timer = 0;
+            // timer = duration; // uncomment this line to reset timer automatically after reaching 0
+        //}
+   // }, 1000);
+////}
+
+//window.onload = function () {
+  //  var time = 60 * 2, // your time in seconds here
+     //   display = document.querySelector('#safeTimerDisplay');
+   // startTimer(time, display);
+//}
+function _timer(callback)
+{
+    var time = 0;     //  The default time of the timer
+    var mode = 1;     //    Mode: count up or count down
+    var status = 0;    //    Status: timer is running or stoped
+    var timer_id;    //    This is used by setInterval function
+    
+    // this will start the timer ex. start the timer with 1 second interval timer.start(1000) 
+    this.start = function(interval)
+    {
+        interval = (typeof(interval) !== 'undefined') ? interval : 1000;
+ 
+        if(status == 0)
+        {
+            status = 1;
+            timer_id = setInterval(function()
+            {
+                switch(mode)
+                {
+                    default:
+                    if(time)
+                    {
+                        time--;
+                        generateTime();
+                        if(typeof(callback) === 'function') callback(time);
+                    }
+                    break;
+                    
+                    case 1:
+                    if(time < 86400)
+                    {
+                        time++;
+                        generateTime();
+                        if(typeof(callback) === 'function') callback(time);
+                    }
+                    break;
+                }
+            }, interval);
+        }
+    }
+    
+    //  Same as the name, this will stop or pause the timer ex. timer.stop()
+    this.stop =  function()
+    {
+        if(status == 1)
+        {
+            status = 0;
+            clearInterval(timer_id);
+        }
+    }
+    
+    // Reset the timer to zero or reset it to your own custom time ex. reset to zero second timer.reset(0)
+    this.reset =  function(sec)
+    {
+        sec = (typeof(sec) !== 'undefined') ? sec : 0;
+        time = sec;
+        generateTime(time);
+    }
+    
+    // Change the mode of the timer, count-up (1) or countdown (0)
+    this.mode = function(tmode)
+    {
+        mode = tmode;
+    }
+    
+    // This methode return the current value of the timer
+    this.getTime = function()
+    {
+        return time;
+    }
+    
+    // This methode return the current mode of the timer count-up (1) or countdown (0)
+    this.getMode = function()
+    {
+        return mode;
+    }
+    
+    // This methode return the status of the timer running (1) or stoped (1)
+    this.getStatus
+    {
+        return status;
+    }
+    
+    // This methode will render the time variable to hour:minute:second format
+    function generateTime()
+    {
+        var second = time % 60;
+        var minute = Math.floor(time / 60) % 60;
+        var hour = Math.floor(time / 3600) % 60;
+        
+        second = (second < 10) ? '0'+second : second;
+        minute = (minute < 10) ? '0'+minute : minute;
+        
+        
+        $('div.timer span.second').html(second);
+        $('div.timer span.minute').html(minute);
+      
+    }
+}
+ 
+// example use
+var timer;
+ 
+$(document).ready(function(e) 
+{
+    timer = new _timer
+    (
+        function(time)
+        {
+            if(time == 0)
+            {
+                timer.stop();
+                alert('time out');
+            }
+        }
+    );
+    timer.reset(0);
+    timer.mode(0);
+});
+</script>
+<body>
+	<h1>Olimpiada Nacional</h1>
+	<div class="set">
+		<p>Set Actual</p>
+		<input id="scoreSet" type="number" value="1"><br>
+	</div>
+	<div class="first-box">
+		<div>
+			<input type="text" placeholder="Primer Jugador"><img id="tacha"; src="tacha.png" width="50px" height="50px"><br>
+		<img id="foto"; src="pingpong.jpeg"><br>
+		<input type="file" onchange="foto1(this);" name="myFile"><br>
+	    <input type="number" value="0" id="score"><br>
+		</div>
+	</div>
+	<div class="second-box"> 
+		<div>
+			<input type="text" placeholder="Primer Jugador"><img id="tacha"; src="tacha.png" width="50px" height="50px"><br>
+			<img id="foto2"; src="pingpong.jpeg"><br>
+			<input type="file" onchange="foto2(this);" name="myFile"><br>
+	    	<input type="number" value="0" id="score2"><br>
+		</div>
+	</div>
+	<div class="centered">
+		<div class="timer">
+            <span class="minute">00</span>:<span class="second">10</span>
+        </div>
+        <div class="control">
+            <button onClick="timer.start(1000)">Start</button> 
+            <button onClick="timer.stop()">Stop</button> 
+            <button onClick="timer.reset(60)">Reset</button> 
+            <button onClick="timer.mode(1)">Count up</button> 
+            <button onClick="timer.mode(0)">Count down</button>
+        </div>
+</div>
+	</div>
+	<div class="split button">
+			<button type="button" onclick="updatePlayerOne();" >Jugador1 +1</button> 
+			<button type="button" onclick="updatePlayerTwo();">Jugador2 +1</button> 
+			<button type="button" onclick="myFunction();">Cambio de Servicio</button> 
+			<button type="button" onclick="startTimer();">Tiempo Fuera</button> 
+			<button type="button" onclick="updateSet();">Set</button> 
+	</div>
+	
+</body>
+</html>
